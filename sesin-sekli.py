@@ -52,7 +52,7 @@ if uploaded_file:
                             "content": [
                                 {
                                     "type": "text",
-                                    "text": """Önündeki fotoğrafa bak. Başka hiçbir şey bilmiyorsun — sadece bu görüntü var.
+                                   "text": """Önündeki fotoğrafa bak. Başka hiçbir şey bilmiyorsun — sadece bu görüntü var.
 
 ADIM 1 - Ne görüyorsun? (2-3 cümle)
 Kum tanelerinin tam olarak nerede toplandığını, hangi bölgelerin boş kaldığını, şeklin simetrik mi asimetrik mi olduğunu söyle. "Chladni deseni görüyorum" gibi genel cümleler YASAK — sadece bu fotoğraftaki özgün detayları tarif et.
@@ -66,7 +66,9 @@ Bu desenin tam şeklini bir insan zihnine benzet. Yoğun bölgeler takıntılar�
 ADIM 4 - ✨ Fuara Özel
 Salihli Sekine Evren Anadolu Lisesi öğrencisi olarak bu deseni gördüğünde ne hissederdin? 3-4 cümle, şiirsel ama gerçek.
 
-UYARI: Genel Chladni bilgisi yazma. Sadece bu fotoğraf. Eğer fotoğrafı göremiyorsan bunu söyle."""
+UYARI: Genel Chladni bilgisi yazma. Sadece bu fotoğraf. Eğer fotoğrafı göremiyorsan bunu söyle.
+
+Yanıtını Türkçe yaz. Teknik ama şiirsel bir dil kullan — sanki bir bilim insanı aynı zamanda şair gibi yazıyor. Madde madde değil, akıcı paragraflar halinde yaz."""
                                 },
                                 {
                                     "type": "image_url",
