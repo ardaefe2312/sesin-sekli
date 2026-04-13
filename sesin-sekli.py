@@ -23,7 +23,7 @@ st.markdown("---")
 # --- ANALİZ BÖLÜMÜ ---
 st.title("🔊 Akustik Veri Analiz Paneli")
 st.sidebar.title("Ayarlar")
-groq_api_key = st.sidebar.text_input("Groq API Key", type="password")
+groq_api_key = st.secrets["GROQ_API_KEY"]
 
 def encode_image(image_file):
     return base64.b64encode(image_file.read()).decode('utf-8')
