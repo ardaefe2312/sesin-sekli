@@ -22,8 +22,13 @@ st.markdown("---")
 
 # --- ANALİZ BÖLÜMÜ ---
 st.title("🔊 Akustik Veri Analiz Paneli")
-st.sidebar.title("Ayarlar")
-groq_api_key = st.secrets["GROQ_API_KEY"]
+
+# API key secrets'tan al
+try:
+    groq_api_key = st.secrets["GROQ_API_KEY"]
+except:
+    st.error("⚠️ API key bulunamadı. Streamlit Secrets'a GROQ_API_KEY ekleyin.")
+    st.stop()
 
 def encode_image(image_file):
     return base64.b64encode(image_file.read()).decode('utf-8')
@@ -32,43 +37,39 @@ uploaded_file = st.file_uploader("Deney fotoğrafınızı yükleyin...", type=["
 
 if uploaded_file:
     st.image(uploaded_file, caption="Sizin Veriniz", use_container_width=True)
-    
-  if st.button("AI Karşılaştırmalı Analizi Başlat"):
-    try:
-        groq_api_key = st.secrets["GROQ_API_KEY"]
-    except:
-        st.error("API key bulunamadı. Streamlit Secrets'a GROQ_API_KEY ekleyin.")
-        st.stop()
-    if True:
-                client = Groq(api_key=groq_api_key)
-                base64_image = encode_image(uploaded_file)
-                
-                with st.spinner('Groq (Llama 4 Scout) analiz ediyor...'):
-                    chat_completion = client.chat.completions.create(
-                        messages=[
-                            {
-                                "role": "user",
-                                "content": [
-                                    {
-                                        "type": "text",
-                                        "text": "Bu bir Chladni deneyi fotoğrafıdır. Gördüğün asimetriyi ve kum dağılımını; fiziksel engeller ve zihinsel gürültü metaforuyla bilimsel bir dille yorumla. Salihli Sekine Evren Anadolu Lisesi fuarı için etkileyici bir metin yaz."
-                                    },
-                                    {
-                                        "type": "image_url",
-                                        "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"},
-                                    },
-                                ],
-                            }
-                        ],
-                        model="meta-llama/llama-4-scout-17b-16e-instruct",  # ✅ YENİ MODEL
-                        max_tokens=1024,
-                    )
-                    
-                    st.success("Analiz Tamamlandı!")
-                    st.markdown("### 🧠 AI Analiz Raporu")
-                    st.write(chat_completion.choices[0].message.content)
-            except Exception as e:
-                st.error(f"Hata oluştu: {str(e)}")
+
+    if st.button("AI Karşılaştırmalı Analizi Başlat"):
+        try:
+            client = Groq(api_key=groq_api_key)
+            base64_image = encode_image(uploaded_file)
+
+            with st.spinner('Groq (Llama 4 Scout) analiz ediyor...'):
+                chat_completion = client.chat.completions.create(
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": "Bu bir Chladni deneyi fotoğrafıdır. Gördüğün asimetriyi ve kum dağılımını; fiziksel engeller ve zihinsel gürültü metaforuyla bilimsel bir dille yorumla. Salihli Sekine Evren Anadolu Lisesi fuarı için etkileyici bir metin yaz."
+                                },
+                                {
+                                    "type": "image_url",
+                                    "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"},
+                                },
+                            ],
+                        }
+                    ],
+                    model="meta-llama/llama-4-scout-17b-16e-instruct",
+                    max_tokens=1024,
+                )
+
+            st.success("Analiz Tamamlandı!")
+            st.markdown("### 🧠 AI Analiz Raporu")
+            st.write(chat_completion.choices[0].message.content)
+
+        except Exception as e:
+            st.error(f"Hata oluştu: {str(e)}")
 
 st.markdown("---")
 st.caption("Frekansın Görünmeyen Gücü - TÜBİTAK 4006")
