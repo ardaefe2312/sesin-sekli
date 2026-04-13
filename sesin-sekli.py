@@ -51,7 +51,19 @@ if uploaded_file:
                             "content": [
                                 {
                                     "type": "text",
-                                    "text": "Bu bir Chladni deneyi fotoğrafıdır. Gördüğün asimetriyi ve kum dağılımını; fiziksel engeller ve zihinsel gürültü metaforuyla bilimsel bir dille yorumla. Salihli Sekine Evren Anadolu Lisesi fuarı için etkileyici bir metin yaz."
+                                    "text": ""text": """Sen bir bilim ve psikoloji yazarısın. Önündeki Chladni deneyi fotoğrafını dikkatlice incele.
+
+Fotoğraftaki kum desenini TAM OLARAK tarif et: hangi bölgeler yoğun, hangi bölgeler seyrek, şekil simetrik mi değil mi, ortada mı kenarlarda mı toplanmış?
+
+Sonra bu gözlemi şu üç başlıkta yorumla:
+
+🔬 Fiziksel Yorum: Bu dağılım hangi frekans ve titreşim davranışına işaret ediyor?
+
+🧠 Psikolojik Metafor: Bu kum deseni bir insan zihnini temsil etseydi ne anlatırdı? Odak noktaları, dağınıklık, boş alanlar — bunlar kişinin iç dünyası hakkında ne söyler?
+
+✨ Fuara Özel Mesaj: Salihli Sekine Evren Anadolu Lisesi öğrencilerinin bu deneyde gözlemlediği gerçekliği, ziyaretçiye ilham verecek şiirsel ama bilimsel bir dille anlat.
+
+Her fotoğraf için özgün ve o fotoğrafa özel bir yorum yaz, genel kalıplardan kaçın.""""
                                 },
                                 {
                                     "type": "image_url",
