@@ -41,14 +41,16 @@ if uploaded_file:
                 client = Groq(api_key=groq_api_key)
                 base64_image = encode_image(uploaded_file)
                 
-                with st.spinner('Groq (Llama 3.2 90B) analiz ediyor...'):
-                    # GÜNCEL MODEL İSMİ: llama-3.2-90b-vision-preview
+                with st.spinner('Groq (Llama 4 Scout) analiz ediyor...'):
                     chat_completion = client.chat.completions.create(
                         messages=[
                             {
                                 "role": "user",
                                 "content": [
-                                    {"type": "text", "text": "Bu bir Chladni deneyi fotoğrafıdır. Gördüğün asimetriyi ve kum dağılımını; fiziksel engeller ve zihinsel gürültü metaforuyla bilimsel bir dille yorumla. Salihli Sekine Evren Anadolu Lisesi fuarı için etkileyici bir metin yaz."},
+                                    {
+                                        "type": "text",
+                                        "text": "Bu bir Chladni deneyi fotoğrafıdır. Gördüğün asimetriyi ve kum dağılımını; fiziksel engeller ve zihinsel gürültü metaforuyla bilimsel bir dille yorumla. Salihli Sekine Evren Anadolu Lisesi fuarı için etkileyici bir metin yaz."
+                                    },
                                     {
                                         "type": "image_url",
                                         "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"},
@@ -56,7 +58,8 @@ if uploaded_file:
                                 ],
                             }
                         ],
-                        model="llama-3.2-90b-vision-preview",
+                        model="meta-llama/llama-4-scout-17b-16e-instruct",  # ✅ YENİ MODEL
+                        max_tokens=1024,
                     )
                     
                     st.success("Analiz Tamamlandı!")
