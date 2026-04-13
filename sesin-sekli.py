@@ -41,7 +41,8 @@ if uploaded_file:
     if st.button("AI Karşılaştırmalı Analizi Başlat"):
         try:
             client = Groq(api_key=groq_api_key)
-            base64_image = encode_image(uploaded_file)
+            uploaded_file.seek(0)
+base64_image = encode_image(uploaded_file)
 
             with st.spinner('Groq (Llama 4 Scout) analiz ediyor...'):
                 chat_completion = client.chat.completions.create(
