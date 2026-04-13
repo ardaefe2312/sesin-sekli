@@ -2,10 +2,8 @@ import streamlit as st
 from groq import Groq
 import base64
 
-# Sayfa ayarları
 st.set_page_config(page_title="Sesin Görünmeyen Gücü - AI", page_icon="🔊", layout="centered")
 
-# --- ÜST BİLGİ VE LOGOLAR ---
 col1, col2, col3 = st.columns([1, 2, 1])
 with col1:
     st.image("seal.jpg", width=100)
@@ -16,22 +14,27 @@ with col3:
     st.image("4006_ana_1.jpg.webp", width=120)
 
 st.markdown("---")
+
+# İdeal desen her zaman gösteriliyor
 st.subheader("🎯 Hedeflenen İdeal Form")
 st.image("kum grafik.png", use_container_width=True)
 st.markdown("---")
 
-# --- ANALİZ BÖLÜMÜ ---
 st.title("🔊 Akustik Veri Analiz Paneli")
 
-# API key secrets'tan al
 try:
     groq_api_key = st.secrets["GROQ_API_KEY"]
 except:
-    st.error("⚠️ API key bulunamadı. Streamlit Secrets'a GROQ_API_KEY ekleyin.")
+    st.error("⚠️ API key bulunamadı.")
     st.stop()
 
 def encode_image(image_file):
+    image_file.seek(0)
     return base64.b64encode(image_file.read()).decode('utf-8')
+
+def encode_local_image(path):
+    with open(path, "rb") as f:
+        return base64.b64encode(f.read()).decode('utf-8')
 
 uploaded_file = st.file_uploader("Deney fotoğrafınızı yükleyin...", type=["jpg", "jpeg", "png"])
 
@@ -41,10 +44,10 @@ if uploaded_file:
     if st.button("AI Karşılaştırmalı Analizi Başlat"):
         try:
             client = Groq(api_key=groq_api_key)
-            uploaded_file.seek(0)
-            base64_image = encode_image(uploaded_file)
+            base64_deney = encode_image(uploaded_file)
+            base64_ideal = encode_local_image("kum grafik.png")
 
-            with st.spinner('Groq (Llama 4 Scout) analiz ediyor...'):
+            with st.spinner("Groq (Llama 4 Scout) karşılaştırıyor..."):
                 chat_completion = client.chat.completions.create(
                     messages=[
                         {
@@ -52,7 +55,7 @@ if uploaded_file:
                             "content": [
                                 {
                                     "type": "text",
-                                   "text": """Sana iki fotoğraf veriyorum.
+                                    "text": """Sana iki fotoğraf veriyorum.
 1. FOTOĞRAF: Teorik olarak mükemmel bir Chladni deseni (referans)
 2. FOTOĞRAF: Öğrencilerin gerçek deney ortamında elde ettiği sonuç
 
@@ -62,7 +65,7 @@ Farklar neler? Gerçek desen nerede ideelden ayrılıyor?
 
 🔬 Fiziksel yorum: Bu farklar hangi dış etkenlerden kaynaklanıyor olabilir? (masa eğimi, kaynak noktası, yüzey kusurları)
 
-🧠 Psikolojik metafor: İdeal zihin vs gerçek hayatta zorlananlar zihin. Bu fark ne anlatıyor?
+🧠 Psikolojik metafor: İdeal zihin vs gerçek hayatta zorlanan zihin. Bu fark ne anlatıyor?
 
 ✨ Mesaj: "Kusur bir hata değil, gerçekliğin kanıtıdır" temasıyla ilham verici bir kapanış yaz.
 
@@ -70,7 +73,11 @@ Türkçe, akıcı paragraflar halinde yaz. Başlık veya madde işareti kullanma
                                 },
                                 {
                                     "type": "image_url",
-                                    "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"},
+                                    "image_url": {"url": f"data:image/png;base64,{base64_ideal}"},
+                                },
+                                {
+                                    "type": "image_url",
+                                    "image_url": {"url": f"data:image/jpeg;base64,{base64_deney}"},
                                 },
                             ],
                         }
