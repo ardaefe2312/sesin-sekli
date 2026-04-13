@@ -51,7 +51,7 @@ if uploaded_file:
             try:
                 # Gemini Yapılandırması
                 genai.configure(api_key=gemini_api_key)
-                model = genai.GenerativeModel('gemini-1.5-flash') # En hızlı model
+                model = genai.GenerativeModel('models/gemini-1.5-flash')
                 
                 with st.spinner('Gemini verileri analiz ediyor ve felsefi raporu hazırlıyor...'):
                     # AI'ya gönderilen talimat (Prompt)
