@@ -33,11 +33,13 @@ uploaded_file = st.file_uploader("Deney fotoğrafınızı yükleyin...", type=["
 if uploaded_file:
     st.image(uploaded_file, caption="Sizin Veriniz", use_container_width=True)
     
-    if st.button("AI Karşılaştırmalı Analizi Başlat"):
-        if not groq_api_key:
-            st.warning("Lütfen sol menüden Groq API anahtarınızı girin.")
-        else:
-            try:
+  if st.button("AI Karşılaştırmalı Analizi Başlat"):
+    try:
+        groq_api_key = st.secrets["GROQ_API_KEY"]
+    except:
+        st.error("API key bulunamadı. Streamlit Secrets'a GROQ_API_KEY ekleyin.")
+        st.stop()
+    if True:
                 client = Groq(api_key=groq_api_key)
                 base64_image = encode_image(uploaded_file)
                 
