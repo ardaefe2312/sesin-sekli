@@ -1,6 +1,8 @@
 
 # 🔊 Frekansın Görünmeyen Gücü — AI Akustik Analiz Paneli
 
+Aİ ANALİZ İÇİN 🏹 https://sesin-sekli.streamlit.app/ 
+
 > **Salihli Sekine Evren Anadolu Lisesi | TÜBİTAK 4006 Bilim Fuarı**
 
 ## 🎯 Proje Hakkında
