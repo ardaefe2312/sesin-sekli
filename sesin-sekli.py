@@ -1,6 +1,6 @@
 import streamlit as st
-from groq import Groq
-import base64
+import google.generativeai as genai
+from PIL import Image
 
 # Sayfa ayarları
 st.set_page_config(page_title="Sesin Görünmeyen Gücü - AI", page_icon="🔊", layout="centered")
@@ -33,50 +33,41 @@ st.markdown("---")
 # --- ANALİZ BÖLÜMÜ ---
 st.title("🔊 Akustik Veri Analiz Paneli")
 st.sidebar.title("Ayarlar")
-groq_api_key = st.sidebar.text_input("Groq API Key", type="password", help="Analiz yapabilmek için Groq API anahtarınızı girin.")
-
-def encode_image(image_file):
-    return base64.b64encode(image_file.read()).decode('utf-8')
+# Groq yerine Gemini API anahtarı girişi
+gemini_api_key = st.sidebar.text_input("Gemini API Key", type="password", help="Analiz yapabilmek için Google AI Studio'dan aldığınız anahtarı girin.")
 
 # Kullanıcının çektiği fotoğrafı yüklediği yer
 uploaded_file = st.file_uploader("Kendi deneyinizden bir kare yükleyin...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file:
-    st.image(uploaded_file, caption="Gerçek Zamanlı Deney Verisi", use_container_width=True)
+    # Fotoğrafı Gemini'nin anlayacağı formata çeviriyoruz
+    input_image = Image.open(uploaded_file)
+    st.image(input_image, caption="Gerçek Zamanlı Deney Verisi", use_container_width=True)
     
     if st.button("AI Karşılaştırmalı Analizi Başlat"):
-        if not groq_api_key:
-            st.warning("Lütfen sol menüden Groq API anahtarınızı girin.")
+        if not gemini_api_key:
+            st.warning("Lütfen sol menüden Gemini API anahtarınızı girin.")
         else:
             try:
-                client = Groq(api_key=groq_api_key)
+                # Gemini Yapılandırması
+                genai.configure(api_key=gemini_api_key)
+                model = genai.GenerativeModel('gemini-1.5-flash') # En hızlı model
                 
-                with st.spinner('Yapay zeka verileri karşılaştırıyor ve felsefi analizini hazırlıyor...'):
-                    base64_deney = encode_image(uploaded_file)
+                with st.spinner('Gemini verileri analiz ediyor ve felsefi raporu hazırlıyor...'):
+                    # AI'ya gönderilen talimat (Prompt)
+                    prompt = """
+                    Sana yüklediğim fotoğraf benim Chladni deneyime ait. 
+                    Arayüzde sabit duran 'ideal grafik' (simetrik olan) ile benim bu fotoğrafımı kıyasla. 
+                    Fotoğrafımdaki asimetriyi ve kum yığılmasını; dış dünyadaki eğimler, üretim kusurları ve zihinsel odak bozucular metaforuyla samimi ama bilimsel bir dille yorumla.
+                    Salihli Sekine Evren Anadolu Lisesi TÜBİTAK fuarı için sunum yaptığımı unutma.
+                    """
                     
-                    # Llama 3.2 Vision modeli ile görsel analizi yapıyoruz
-                    chat_completion = client.chat.completions.create(
-                        messages=[
-                            {
-                                "role": "user",
-                                "content": [
-                                    {
-                                        "type": "text", 
-                                        "text": "Sana yüklediğim fotoğraf benim Chladni deneyime ait. Arayüzde sabit duran 'ideal grafik' ile benim bu fotoğrafımı kıyasla. Fotoğrafımdaki asimetriyi ve kum yığılmasını; dış dünyadaki eğimler, üretim kusurları ve zihinsel odak bozucular metaforuyla samimi ama bilimsel bir dille yorumla."
-                                    },
-                                    {
-                                        "type": "image_url",
-                                        "image_url": {"url": f"data:image/jpeg;base64,{base64_deney}"},
-                                    },
-                                ],
-                            }
-                        ],
-                        model="llama-3.2-11b-vision-preview",
-                    )
+                    # Analizi başlat
+                    response = model.generate_content([prompt, input_image])
                     
                     st.success("Analiz Tamamlandı!")
                     st.markdown("### 🧠 AI Analiz Raporu")
-                    st.write(chat_completion.choices[0].message.content)
+                    st.write(response.text)
             except Exception as e:
                 st.error(f"Bir hata oluştu: {str(e)}")
 
