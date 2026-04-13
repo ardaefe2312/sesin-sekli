@@ -51,19 +51,21 @@ if uploaded_file:
                             "content": [
                                 {
                                     "type": "text",
-                                    "text": ""text": """Sen bir bilim ve psikoloji yazarısın. Önündeki Chladni deneyi fotoğrafını dikkatlice incele.
+                                    "text": """Önündeki fotoğrafa bak. Başka hiçbir şey bilmiyorsun — sadece bu görüntü var.
 
-Fotoğraftaki kum desenini TAM OLARAK tarif et: hangi bölgeler yoğun, hangi bölgeler seyrek, şekil simetrik mi değil mi, ortada mı kenarlarda mı toplanmış?
+ADIM 1 - Ne görüyorsun? (2-3 cümle)
+Kum tanelerinin tam olarak nerede toplandığını, hangi bölgelerin boş kaldığını, şeklin simetrik mi asimetrik mi olduğunu söyle. "Chladni deseni görüyorum" gibi genel cümleler YASAK — sadece bu fotoğraftaki özgün detayları tarif et.
 
-Sonra bu gözlemi şu üç başlıkta yorumla:
+ADIM 2 - 🔬 Fizik
+Bu özgün dağılım hangi titreşim frekansına işaret ediyor? Levhanın hangi noktası kaynak olabilir?
 
-🔬 Fiziksel Yorum: Bu dağılım hangi frekans ve titreşim davranışına işaret ediyor?
+ADIM 3 - 🧠 Psikoloji  
+Bu desenin tam şeklini bir insan zihnine benzet. Yoğun bölgeler takıntıları mı, odak noktalarını mı temsil ediyor? Boş alanlar ne anlama geliyor? Bu zihin sahibi nasıl biri?
 
-🧠 Psikolojik Metafor: Bu kum deseni bir insan zihnini temsil etseydi ne anlatırdı? Odak noktaları, dağınıklık, boş alanlar — bunlar kişinin iç dünyası hakkında ne söyler?
+ADIM 4 - ✨ Fuara Özel
+Salihli Sekine Evren Anadolu Lisesi öğrencisi olarak bu deseni gördüğünde ne hissederdin? 3-4 cümle, şiirsel ama gerçek.
 
-✨ Fuara Özel Mesaj: Salihli Sekine Evren Anadolu Lisesi öğrencilerinin bu deneyde gözlemlediği gerçekliği, ziyaretçiye ilham verecek şiirsel ama bilimsel bir dille anlat.
-
-Her fotoğraf için özgün ve o fotoğrafa özel bir yorum yaz, genel kalıplardan kaçın.""""
+UYARI: Genel Chladni bilgisi yazma. Sadece bu fotoğraf. Eğer fotoğrafı göremiyorsan bunu söyle."""
                                 },
                                 {
                                     "type": "image_url",
