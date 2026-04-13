@@ -13,7 +13,7 @@ with col1:
     st.image("seal.jpg", width=100)
 
 with col2:
-    st.markdown("<h3 style='text-align: center; color: #2E4053;'>SALİHLİ BELEDİYE EVREN ANADOLU LİSESİ</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: #2E4053;'>SALİHLİ SEKİNE EVREN ANADOLU LİSESİ</h3>", unsafe_allow_html=True)
     st.markdown("<h4 style='text-align: center; color: #5D6D7E;'>TÜBİTAK 4006 - Bilim Fuarı</h4>", unsafe_allow_html=True)
 
 with col3:
